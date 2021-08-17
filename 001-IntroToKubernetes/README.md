@@ -15,7 +15,7 @@ In this hack you will solve a common challenge for companies migrating to the cl
 
 ## Challenges
 - Challenge 0: **[Pre-requisites - Ready, Set, GO!](Student/00-prereqs.md)**
-   - Prepare your workstation to work with Azure, Docker containers, and AKS
+   - Prepare your environment to work with Azure, Docker containers, and AKS
 - Challenge 1: **[Got Containers?](Student/01-containers.md)**
    - Package the "FabMedical" app into a Docker container and run it locally.
 - Challenge 2: **[The Azure Container Registry](Student/02-acr.md)**
