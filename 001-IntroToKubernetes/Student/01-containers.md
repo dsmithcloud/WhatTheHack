@@ -26,17 +26,63 @@ In this challenge we'll be building, and running the node.js based FabMedical ap
 	- Exposes the needed port
 	- Starts the node application
 
+	content-api Dockerfile:
+	```
+	FROM node:8
+
+	# Create app directory
+	RUN mkdir -p /usr/src/app
+	WORKDIR /usr/src/app
+
+	# Install app dependencies
+	COPY package.json /usr/src/app/
+	RUN npm install
+
+	# Bundle app source
+	COPY . /usr/src/app
+
+	EXPOSE 3001
+	CMD [ "npm", "start" ]
+	```
+
 - Create a Dockerfile for the content-web app that will:
 	- Do the same as the Dockerfile for the content-api
 	- Also sets the environment variable value as above
 
+	content-web Dockerfile:
+	```
+	FROM node:8
+
+	# Create app directory
+	RUN mkdir -p /usr/src/app
+	WORKDIR /usr/src/app
+
+	# Install app dependencies
+	COPY package.json /usr/src/app/
+	RUN npm install
+
+	# Bundle app source
+	COPY . /usr/src/app
+
+	# environment variable pointing to the api server
+	ENV CONTENT_API_URL http://api:3001
+
+	EXPOSE 3000
+	CMD [ "npm", "start" ]
+	```
+
 - Build Docker images for both content-api and content-web
+	- `docker build –t content-api .`
+	- `docker build –t content-web .`
 
 - Run both containers you just built and verify that it is working. 
 	- **Hint:** Run the containers in 'detached' mode so that they run in the background.
 	- **NOTE:** The containers need to run in the same network to talk to each other. 
 		- Create a Docker network named "fabmedical"
+			- `docker network create fabmedical`
 		- Run each container using the "fabmedical" network
+			- `docker run -d -p 3001:3001 --name api --net fabmedical content-api`
+			- `docker run -d -p 3000:3000 --name web --net fabmedical content-web`
 		- **Hint:** Each container you run needs to have a "name" on the fabmedical network and this is how you access it from other containers on that network.
 		- **Hint:** You can run your containers in "detached" mode so that the running container does NOT block your command prompt.
 
