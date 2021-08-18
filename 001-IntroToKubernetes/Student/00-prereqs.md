@@ -11,13 +11,9 @@ A smart cloud solution architect always has the right tools in their toolbox.
 In this challenge we'll be setting up all the tools we will need to complete our challenges.
 
 - Make sure that you have joined the Teams group for this track. The first person on your team at your table should create a new channel in this Team with your team name.
-- Install the recommended toolset:
-    - Windows Subsystem for Linux
-    - Azure CLI 
-        - Update to the latest
-        - Must be at least version 2.7.x
-        - **NOTE:** If you’re running into issues running Azure CLI command on Windows, disable Global Protect (VPN)
-    - Visual Studio Code
+- Create a Resource Group, Storage account, and access Cloud Shell
+- Clone the repo down to your storage account
+- Deploy the build machine VM
 - **NOTE:** You can start the next challenge even if this one is still running by using the Azure Cloud Shell.
 - **Tip:** You can complete almost all of the challenges with the Azure Cloud Shell!  But be a good cloud architect and make sure you have experience installing the tools locally.
 
@@ -66,14 +62,17 @@ In this challenge we'll be setting up all the tools we will need to complete our
 
     **`Student01@Azure:~$`**
 
+- Clone this repo to your storage account
+    - At the cloud shell prompt, type **`cd clouddrive`**
+    - At the cloud shell prompt, type **`git clone https://github.com/dsmithcloud/WhatTheHack.git`**
+
+
 - Deploy build machine VM with Linux + Docker using provided ARM Template
-	- **`az group create -g <resourcegroupname> -l <region>`**
+    - At the cloud shell prompt, type **`cd WhatTheHack/001-IntroToKubernetes/Student/Resources/Challenge\ 1/build-machine`**
 	- **`az deployment group create -g <rgname> -n <deploymentName> --template-file docker-build-machine-vm.json --parameters docker-build-machine-vm.parameters.json`**
+- When prompted provide an admin password for your VM.  **DON'T FORGET THE PASSWORD!**
 - SSH into the build machine on port 2266 on the public IP of the VM
 	- **`ssh -p 2266 wthadmin@12.12.12.12`**
-- When WSL v2 is available, there should be no need for the Linux VM in Azure. All work can be performed locally in WSL 2 on Windows.  However, this will require the user to perform more setup steps on their workstation, including:
-	- Installing Docker
-	- Copying the FabMedical code into their WSL environment.
 - Get the Fab Medical code from the Student Resources folder for Challenge 1
 	- **NOTE:** The FabMedical code files are pre-loaded onto the Linux VM created by the ARM template + script.
 - Run the Fab Medical application locally on the VM & verify access
@@ -89,7 +88,7 @@ In this challenge we'll be setting up all the tools we will need to complete our
 	- The environment variable value should be `http://localhost:3001`
 	- **NOTE:** **localhost** only works when both apps are run locally using Node. You will need a different value for the environment variable when running in Docker.
 	- **NOTE:** The node processes for both content-api and content-web must be stopped before attempting to run the docker containers in the next step. To do this, use the Linux `ps` command to list all processes running, and then the Linux `kill` command to kill the two Node.js processes.
-	- **NOTE:** Attendees should **not** struggle with getting app to run locally.  If they are not familiar with Node.js, help them through this part.  Let them spend more time figuring out Docker later.
+	- **NOTE:** If you are not familiar with Node.js, find a proctor to help you through this part.
 - Dockerfiles for both content-api and content-web are in the Coach Solutions folder for Challenge 1
 	- The value of the env URL for content-web should match whatever value is used for the --name parameter when executing docker run on content-api as seen below.
 - Build Docker images for both content-api & content-web. 
@@ -121,4 +120,4 @@ In this challenge we'll be setting up all the tools we will need to complete our
 
 1. You have a bash shell at your disposal (WSL, Mac, Linux or Azure Cloud Shell)
 1. Running `az --version` shows the version of your Azure CLI
-1. Visual Studio Code is installed.
+1. Browsing to http://<public-ip-of-build-machine>:3000 produces the Contoso Neuro 2017 conference website
