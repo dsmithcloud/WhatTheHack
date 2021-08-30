@@ -12,6 +12,7 @@ In this challenge we will be provisioning our first Kubernetes cluster using the
 
 - Install the Kubernetes command line tool (`kubectl`).
 	- **Hint:** This can be done easily with the Azure CLI
+	- `az aks install-cli`
 - Use the Azure CLI to create a new, multi-node AKS cluster with the following specifications:
 	- Use the default Kubernetes version used by AKS.
 	- The cluster should use kubenet (ie: basic networking).  
@@ -20,13 +21,23 @@ In this challenge we will be provisioning our first Kubernetes cluster using the
 	- The cluster should attach to your ACR created in Challenge 2 (if you didn't do Challenge 2, you don't need to attach to anything).
       - **NOTE:** Attaching an ACR requires you to have Owner or Azure account administrator role on the Azure subscription. If this is not possible then someone who is an Owner can do the attach for you after you create the cluster.
     - **NOTE:** You will need to specify on the command line if you want ssh keys generated or no ssh keys used. Either option will work, but you should read the documentation and be familiar with the difference.
+	- `az aks create --location eastus --name wth-aks02-poc --node-count 3 --no-ssh-key --resource-group wth-rg02-poc --zones 1 2 3 --enable-managed-identity --attach-acr <acrname>`
 
 Once the cluster is running:
 - Use kubectl to prove that the cluster is a multi-node cluster and is working properly.
+	`kubectl get nodes`
+	- **Hint:** You may need to grab the credentials for your cluster, first:
+		`az aks get-credentials --name <aks-service-name> --overwrite-existing --resource-group <RG-WTHyourname>`
+-To see the availability zone each node is in:
+```
+	kubectl get nodes -o custom-columns=NAME:'{.metadata.name}',REGION:'{.metadata.labels.topology\.kubernetes\.io/region}',ZONE:'{metadata.labels.topology\.kubernetes\.io/zone}'
+```
 - Use kubectl to examine which availability zone each node is in.  
 - **Optional:** Bring up the AKS "Workloads" screen in the Azure portal.
 	- **Hint:** Again, the Azure CLI makes this very easy with one command.
 	- **NOTE:** This will not work if you are using a Linux jump box to connect to your cluster.
+
+	
 
 ## Success Criteria
 
@@ -37,3 +48,5 @@ Once the cluster is running:
 
 ## Learning Resources:
 - Be sure to review:  https://docs.microsoft.com/en-us/azure/aks/availability-zones
+
+[< Previous Challenge](./02-acr.md) - **[Home](../README.md)** - [Next Challenge >](./04-k8sdeployment.md)

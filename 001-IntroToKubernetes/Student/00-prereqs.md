@@ -17,6 +17,8 @@ In this challenge we'll be setting up all the tools we will need to complete our
 - **NOTE:** You can start the next challenge even if this one is still running by using the Azure Cloud Shell.
 - **Tip:** You can complete almost all of the challenges with the Azure Cloud Shell!  But be a good cloud architect and make sure you have experience installing the tools locally.
 
+## Lab Instructions
+
 - Create your student Resource Group
     - Log into **`https://portal.azure.com`** with your student credentials.
     - Click the hamburger menu (3 horizontal bars) in the upper left corner, then click Resource Groups.
@@ -85,3 +87,5 @@ In this challenge we'll be setting up all the tools we will need to complete our
 2. You have a bash shell at your disposal (WSL, Mac, Linux or Azure Cloud Shell)
 3. You have successfully cloned the workshop materials repo to your clouddrive
 4. The build vm is running and you can successfully SSH to it.
+
+**[Home](../README.md)** - [Next Challenge >](./01-containers.md)
