@@ -14,6 +14,9 @@ In this challenge we need to get our application up and running in Kubernetes. W
 - **API app:** whatthehackmsft/content-api
 - **Web app:** whatthehackmsft/content-web
 
+`docker pull whatthehackmsft/content-api`
+`docker pull whatthehackmsft/content-web`
+
 
 ### Deploy the **API app** from the command line using kubectl and YAML files:
 
